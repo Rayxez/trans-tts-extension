@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TransTTS Dashboard</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body class="theme-light" id="app-body">
+  <div class="app-container">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="logo">
+        <div class="logo-icon">T</div>
+        <div class="logo-text">
+          <h1>TransTTS</h1>
+          <p>Dịch thuật & Phát âm AI</p>
+        </div>
+      </div>
+      <button class="icon-btn" id="btn-theme" title="Đổi giao diện">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+    </header>
+
+    <!-- Nav Tabs -->
+    <nav class="nav-tabs">
+      <button class="tab-link active" data-tab="tab-translator">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12.87 15.07l-2.54-2.51.03-.03c1.74-1.94 2.98-4.17 3.71-6.53H17V4h-7V2H8v2H1v1.99h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12zm-2.62 7l1.62-4.33L19.12 17h-3.24z"/></svg>
+        Dịch thuật
+      </button>
+      <button class="tab-link" data-tab="tab-history">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        Lịch sử
+      </button>
+      <button class="tab-link" data-tab="tab-settings">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        Cấu hình
+      </button>
+    </nav>
+
+    <!-- Content Sections -->
+    <main class="app-content">
+      <!-- 1. Translator Tab -->
+      <section id="tab-translator" class="tab-panel active">
+        <div class="lang-selector-row">
+          <select class="lang-select" id="sel-source-lang">
+            <option value="auto">Tự động nhận diện</option>
+            <option value="vi">Tiếng Việt</option>
+            <option value="en">English</option>
+            <option value="zh">中文 (Chinese)</option>
+            <option value="ja">日本語 (Japanese)</option>
+          </select>
+          <button class="icon-btn" id="btn-swap-lang" title="Đổi chiều">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="17 1 21 5 17 9"/><line x1="3" y1="5" x2="21" y2="5"/><polyline points="7 23 3 19 7 15"/><line x1="21" y1="19" x2="3" y2="19"/></svg>
+          </button>
+          <select class="lang-select" id="sel-target-lang">
+            <option value="vi">Tiếng Việt</option>
+            <option value="en">English</option>
+            <option value="zh">中文 (Chinese)</option>
+            <option value="ja">日本語 (Japanese)</option>
+            <option value="ko">한국어 (Korean)</option>
+            <option value="fr">Français (French)</option>
+            <option value="de">Deutsch (German)</option>
+            <option value="es">Español (Spanish)</option>
+            <option value="ru">Русский (Russian)</option>
+          </select>
+        </div>
+
+        <div class="input-container">
+          <textarea id="txt-input" placeholder="Nhập văn bản cần dịch..."></textarea>
+          <div class="input-actions">
+            <span id="char-counter">0 / 2000</span>
+            <button class="icon-btn" id="btn-clear-input" title="Xóa">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <button class="btn btn-primary" id="btn-translate-manual">
+          Dịch ngay
+        </button>
+
+        <div class="output-container" id="output-wrapper" style="display:none;">
+          <div class="output-header">
+            <span id="engine-badge" class="badge">Google</span>
+            <div class="output-actions">
+              <button class="icon-btn" id="btn-tts-translated" title="Nghe bản dịch">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+              </button>
+              <button class="icon-btn" id="btn-copy-translated" title="Sao chép">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              </button>
+            </div>
+          </div>
+          <div class="output-text" id="txt-output">Bản dịch sẽ hiển thị ở đây...</div>
+        </div>
+      </section>
+
+      <!-- 2. History Tab -->
+      <section id="tab-history" class="tab-panel">
+        <div class="history-controls">
+          <input type="text" id="search-history" class="lang-select" style="width: 100%;" placeholder="Tìm kiếm trong lịch sử...">
+          <button class="btn btn-danger-text" id="btn-clear-history">Xóa tất cả</button>
+        </div>
+        <div class="history-list" id="history-container">
+          <!-- History items will be injected here -->
+          <div class="empty-state">Chưa có lịch sử dịch thuật.</div>
+        </div>
+      </section>
+
+      <!-- 3. Settings Tab -->
+      <section id="tab-settings" class="tab-panel">
+        <div class="setting-item">
+          <div class="setting-info">
+            <span class="setting-title">Tự động dịch khi bôi đen</span>
+            <span class="setting-desc">Tự động hiện popup khi bạn tô đen văn bản.</span>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="chk-auto-popup">
+            <span class="slider"></span>
+          </label>
+        </div>
+
+        <div class="setting-item">
+          <div class="setting-info">
+            <span class="setting-title">Bộ máy dịch thuật (Engine)</span>
+            <span class="setting-desc">Chọn dịch tự động miễn phí hoặc dịch AI cao cấp.</span>
+          </div>
+          <select class="lang-select" id="sel-engine-settings">
+            <option value="google">Google Translate (Miễn phí)</option>
+            <option value="gemini">Gemini AI (Yêu cầu API Key)</option>
+          </select>
+        </div>
+
+        <div class="setting-item" id="gemini-key-container" style="display:none; flex-direction:column; align-items:stretch; gap:6px;">
+          <div class="setting-info">
+            <span class="setting-title">Gemini API Key</span>
+            <span class="setting-desc">Nhập khóa API Gemini của bạn để dịch AI.</span>
+          </div>
+          <input type="password" id="txt-gemini-key" class="lang-select" style="width:100%; box-sizing:border-box;" placeholder="AIzaSy...">
+        </div>
+
+        <div class="setting-item">
+          <div class="setting-info">
+            <span class="setting-title">Chế độ thu nhỏ (Mini Mode)</span>
+            <span class="setting-desc">Thu nhỏ cửa sổ popup nổi để tiết kiệm diện tích.</span>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="chk-mini-mode">
+            <span class="slider"></span>
+          </label>
+        </div>
+
+        <div class="setting-item">
+          <div class="setting-info">
+            <span class="setting-title">Ngôn ngữ đích mặc định</span>
+            <span class="setting-desc">Ngôn ngữ dịch ra mặc định khi dùng tiện ích.</span>
+          </div>
+          <select class="lang-select" id="sel-default-target">
+            <option value="vi">Tiếng Việt</option>
+            <option value="en">English</option>
+            <option value="zh">中文 (Chinese)</option>
+            <option value="ja">日本語 (Japanese)</option>
+            <option value="ko">한국어 (Korean)</option>
+          </select>
+        </div>
+        
+        <div style="margin-top:20px; font-size:10px; color:var(--text-muted); text-align:center;">
+          Phiên bản 1.0.0 • Thiết kế bởi Antigravity
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
